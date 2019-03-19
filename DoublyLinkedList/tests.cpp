@@ -1,0 +1,642 @@
+#include <iostream>
+#include <cassert>
+
+#include "DoublyLinkedList.hpp"
+
+using namespace std;
+
+DoublyLinkedList<int> GetList(int n, int mode) {
+	DoublyLinkedList<int> list;
+
+	for (int i = 0; i < n; i++) {
+		if (mode == 0) {
+			list.AddBack(i + 1);
+		}
+		else if (mode == 1) {
+			list.AddBack(n - i);
+		}
+		else {
+			list.AddBack(1 + rand() % n);
+		}
+	}
+
+	return list;
+}
+
+void AddFrontTests() {
+	cout << "AddFrontTests: ";
+
+	DoublyLinkedList<int> list;
+
+	assert(list.IsEmpty());
+
+	list.AddFront(1);
+
+	assert(!list.IsEmpty());
+	assert(list.GetFirst() == 1);
+	assert(list.GetLast() == 1);
+	assert(list.Get(0) == 1);
+
+	list.AddFront(2);
+
+	assert(!list.IsEmpty());
+	assert(list.GetFirst() == 2);
+	assert(list.GetLast() == 1);
+	assert(list.Get(0) == 2);
+	assert(list.Get(1) == 1);
+
+	cout << "OK" << endl;
+}
+
+void AddBackTests() {
+	cout << "AddBackTests: ";
+
+	DoublyLinkedList<int> list;
+
+	assert(list.IsEmpty());
+
+	list.AddBack(1);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 1);
+	assert(list.GetFirst() == 1);
+	assert(list.GetLast() == 1);
+	assert(list.Get(0) == 1);
+
+	list.AddBack(2);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 2);
+	assert(list.GetFirst() == 1);
+	assert(list.GetLast() == 2);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+
+	cout << "OK" << endl;
+}
+
+void InsertAtTests() {
+	cout << "InsertAtTests: ";
+
+	DoublyLinkedList<int> list;
+
+	list.AddBack(1); // 1
+	list.AddBack(2); // 1 2
+
+	list.InsertAt(0, 0);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 3);
+	assert(list.GetFirst() == 0);
+	assert(list.GetLast() == 2);
+	assert(list.Get(0) == 0);
+	assert(list.Get(1) == 1);
+	assert(list.Get(2) == 2);
+
+	list.InsertAt(2, 4);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 4);
+	assert(list.GetFirst() == 0);
+	assert(list.GetLast() == 2);
+	assert(list.Get(0) == 0);
+	assert(list.Get(1) == 1);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 2);
+
+	list.InsertAt(0, 5);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 5);
+	assert(list.GetFirst() == 5);
+	assert(list.GetLast() == 2);
+	assert(list.Get(0) == 5);
+	assert(list.Get(1) == 0);
+	assert(list.Get(2) == 1);
+	assert(list.Get(3) == 4);
+	assert(list.Get(4) == 2);
+
+	cout << "OK" << endl;
+}
+
+void RemoveFrontTests() {
+	cout << "RemoveFrontTests: ";
+
+	DoublyLinkedList<int> list;
+
+	list.AddBack(1);
+	list.AddBack(2);
+	list.AddBack(3);
+	list.AddBack(4);
+	list.AddBack(5);
+
+	list.RemoveFront();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 4);
+	assert(list.Get(0) == 2);
+	assert(list.Get(1) == 3);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 5);
+
+	list.RemoveFront();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 3);
+	assert(list.Get(0) == 3);
+	assert(list.Get(1) == 4);
+	assert(list.Get(2) == 5);
+
+	list.RemoveFront();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 2);
+	assert(list.Get(0) == 4);
+	assert(list.Get(1) == 5);
+
+	list.RemoveFront();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 1);
+	assert(list.Get(0) == 5);
+
+	list.RemoveFront();
+
+	assert(list.IsEmpty());
+	assert(list.Length() == 0);
+
+	cout << "OK" << endl;
+}
+
+void RemoveBackTests() {
+	cout << "RemoveBackTests: ";
+
+	DoublyLinkedList<int> list;
+
+	list.AddBack(1);
+	list.AddBack(2);
+	list.AddBack(3);
+	list.AddBack(4);
+	list.AddBack(5);
+
+	list.RemoveBack();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 4);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 3);
+	assert(list.Get(3) == 4);
+
+	list.RemoveBack();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 3);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 3);
+
+	list.RemoveBack();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 2);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+
+	list.RemoveBack();
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 1);
+	assert(list.Get(0) == 1);
+
+	list.RemoveBack();
+
+	assert(list.IsEmpty());
+	assert(list.Length() == 0);
+
+	cout << "OK" << endl;
+}
+
+void RemoveAtTests() {
+	cout << "RemoveAtTests: ";
+
+	DoublyLinkedList<int> list;
+
+	list.AddBack(1);
+	list.AddBack(2);
+	list.AddBack(3);
+	list.AddBack(4);
+	list.AddBack(5);
+
+	list.RemoveAt(2);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 4);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 5);
+
+	list.RemoveAt(1);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 3);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 4);
+	assert(list.Get(2) == 5);
+
+	list.RemoveAt(2);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 2);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 4);
+
+	list.RemoveAt(0);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 1);
+	assert(list.Get(0) == 4);
+
+	list.RemoveBack();
+
+	assert(list.IsEmpty());
+	assert(list.Length() == 0);
+
+	cout << "OK" << endl;	
+}
+
+void RemoveTests() {
+	cout << "RemoveTests: ";
+
+	DoublyLinkedList<int> list;
+
+	list.AddBack(1);
+	list.AddBack(2);
+	list.AddBack(1);
+
+	list.Remove(0);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 3);
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 1);
+
+	list.Remove(1);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 1);
+	assert(list.Get(0) == 2);
+	
+	list.Remove(2);
+
+	assert(list.IsEmpty());
+	assert(list.Length() == 0);
+
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(1);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 6);
+
+	list.Remove(1);
+
+	assert(list.IsEmpty());
+	assert(list.Length() == 0);
+
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(2);
+	list.AddBack(3);
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(4);
+	list.AddBack(1);
+	list.AddBack(5);
+	list.AddBack(1);
+	list.AddBack(1);
+	list.AddBack(1);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 12);
+
+	list.Remove(1);
+
+	assert(!list.IsEmpty());
+	assert(list.Length() == 4);
+	assert(list.Get(0) == 2);
+	assert(list.Get(1) == 3);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 5);
+
+	cout << "OK" << endl;	
+}
+
+void IsSortedTests() {
+	cout << "IsSortedTests: ";
+	DoublyLinkedList<int> list;
+
+	assert(!list.IsSorted());
+
+	list.AddBack(1);
+
+	assert(list.IsSorted());
+
+	list.AddBack(2);
+
+	assert(list.IsSorted());
+
+	list.AddBack(2);
+	list.AddBack(3);
+
+	assert(list.IsSorted());
+
+	list.AddBack(1);
+
+	assert(!list.IsSorted());
+
+	cout << "OK" << endl;
+}
+
+void BubleSortTests() {
+	cout << "BubleSortTests: ";
+
+	DoublyLinkedList<int> list1 = GetList(5, 0);
+	DoublyLinkedList<int> list2 = GetList(5, 1);
+	DoublyLinkedList<int> list3 = GetList(1000, 2);
+
+	assert(list1.IsSorted());
+	assert(!list2.IsSorted());
+
+	list1.BubleSort();
+	assert(list1.IsSorted());
+	assert(list1.GetFirst() == 1);
+	assert(list1.GetLast() == 5);
+	assert(list1.Get(0) == 1);
+	assert(list1.Get(1) == 2);
+	assert(list1.Get(2) == 3);
+	assert(list1.Get(3) == 4);
+	assert(list1.Get(4) == 5);
+	
+	list2.BubleSort();
+	assert(list2.IsSorted());
+	assert(list2.GetFirst() == 1);
+	assert(list2.GetLast() == 5);
+	assert(list2.Get(0) == 1);
+	assert(list2.Get(1) == 2);
+	assert(list2.Get(2) == 3);
+	assert(list2.Get(3) == 4);
+	assert(list2.Get(4) == 5);
+
+	list3.BubleSort();
+	assert(list3.IsSorted());
+
+	cout << "OK" << endl;
+}
+
+void SelectionSortTests() {
+	cout << "SelectionSortTests: ";
+
+	DoublyLinkedList<int> list1 = GetList(5, 0);
+	DoublyLinkedList<int> list2 = GetList(5, 1);
+	DoublyLinkedList<int> list3 = GetList(1000, 2);
+
+	assert(list1.IsSorted());
+	assert(!list2.IsSorted());
+
+	list1.SelectionSort();
+	assert(list1.IsSorted());
+	assert(list1.GetFirst() == 1);
+	assert(list1.GetLast() == 5);
+	assert(list1.Get(0) == 1);
+	assert(list1.Get(1) == 2);
+	assert(list1.Get(2) == 3);
+	assert(list1.Get(3) == 4);
+	assert(list1.Get(4) == 5);
+	
+	list2.SelectionSort();
+	assert(list2.IsSorted());
+	assert(list2.GetFirst() == 1);
+	assert(list2.GetLast() == 5);
+	assert(list2.Get(0) == 1);
+	assert(list2.Get(1) == 2);
+	assert(list2.Get(2) == 3);
+	assert(list2.Get(3) == 4);
+	assert(list2.Get(4) == 5);
+
+	list3.SelectionSort();
+	assert(list3.IsSorted());
+
+	cout << "OK" << endl;
+}
+
+void InsertionSortTests() {
+	cout << "InsertionSortTests: ";
+
+	DoublyLinkedList<int> list1 = GetList(5, 0);
+	DoublyLinkedList<int> list2 = GetList(5, 1);
+	DoublyLinkedList<int> list3 = GetList(1000, 2);
+
+	assert(list1.IsSorted());
+	assert(!list2.IsSorted());
+
+	list1.InsertionSort();
+	assert(list1.IsSorted());
+	assert(list1.GetFirst() == 1);
+	assert(list1.GetLast() == 5);
+	assert(list1.Get(0) == 1);
+	assert(list1.Get(1) == 2);
+	assert(list1.Get(2) == 3);
+	assert(list1.Get(3) == 4);
+	assert(list1.Get(4) == 5);
+	
+	list2.InsertionSort();
+	assert(list2.IsSorted());
+	assert(list2.GetFirst() == 1);
+	assert(list2.GetLast() == 5);
+	assert(list2.Get(0) == 1);
+	assert(list2.Get(1) == 2);
+	assert(list2.Get(2) == 3);
+	assert(list2.Get(3) == 4);
+	assert(list2.Get(4) == 5);
+
+	list3.InsertionSort();
+	assert(list3.IsSorted());
+
+	cout << "OK" << endl;
+}
+
+void MergeSortTests() {
+	cout << "MergeSortTests: ";
+
+	DoublyLinkedList<int> list1 = GetList(5, 0);
+	DoublyLinkedList<int> list2 = GetList(5, 1);
+	DoublyLinkedList<int> list3 = GetList(1000, 2);
+
+	assert(list1.IsSorted());
+	assert(!list2.IsSorted());
+
+	list1.MergeSort();
+	assert(list1.IsSorted());
+	assert(list1.GetFirst() == 1);
+	assert(list1.GetLast() == 5);
+	assert(list1.Get(0) == 1);
+	assert(list1.Get(1) == 2);
+	assert(list1.Get(2) == 3);
+	assert(list1.Get(3) == 4);
+	assert(list1.Get(4) == 5);
+	
+	list2.MergeSort();
+	assert(list2.IsSorted());
+	assert(list2.GetFirst() == 1);
+	assert(list2.GetLast() == 5);
+	assert(list2.Get(0) == 1);
+	assert(list2.Get(1) == 2);
+	assert(list2.Get(2) == 3);
+	assert(list2.Get(3) == 4);
+	assert(list2.Get(4) == 5);
+
+	list3.MergeSort();
+	assert(list3.IsSorted());
+
+	cout << "OK" << endl;
+}
+
+void QuickSortTests() {
+	cout << "QuickSortTests: ";
+
+	DoublyLinkedList<int> list1 = GetList(5, 0);
+	DoublyLinkedList<int> list2 = GetList(5, 1);
+	DoublyLinkedList<int> list3 = GetList(1000, 2);
+
+	assert(list1.IsSorted());
+	assert(!list2.IsSorted());
+
+	list1.QuickSort();
+	assert(list1.IsSorted());
+	assert(list1.GetFirst() == 1);
+	assert(list1.GetLast() == 5);
+	assert(list1.Get(0) == 1);
+	assert(list1.Get(1) == 2);
+	assert(list1.Get(2) == 3);
+	assert(list1.Get(3) == 4);
+	assert(list1.Get(4) == 5);
+	
+	list2.QuickSort();
+	assert(list2.IsSorted());
+	assert(list2.GetFirst() == 1);
+	assert(list2.GetLast() == 5);
+	assert(list2.Get(0) == 1);
+	assert(list2.Get(1) == 2);
+	assert(list2.Get(2) == 3);
+	assert(list2.Get(3) == 4);
+	assert(list2.Get(4) == 5);
+
+	list3.QuickSort();
+	assert(list3.IsSorted());
+
+	cout << "OK" << endl;
+}
+
+void FunctionsTests() {
+	cout << "FunctionsTests: ";
+
+	DoublyLinkedList<int> list;
+
+	list.AddBack(1);
+
+	assert(list.GetMin() == 1);
+	assert(list.GetMax() == 1);
+
+	list.AddBack(2);
+
+	assert(list.GetMin() == 1);
+	assert(list.GetMax() == 2);
+
+	list.AddBack(0);
+
+	assert(list.GetMin() == 0);
+	assert(list.GetMax() == 2);
+
+	list = GetList(1, 1);
+	
+	assert(list.Get(0) == 1);
+	list.Reverse();
+	assert(list.Get(0) == 1);
+
+	list = GetList(5, 1);
+
+	assert(list.Get(0) == 5);
+	assert(list.Get(1) == 4);
+	assert(list.Get(2) == 3);
+	assert(list.Get(3) == 2);
+	assert(list.Get(4) == 1);
+
+	list.Reverse();
+
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 3);
+	assert(list.Get(3) == 4);
+	assert(list.Get(4) == 5);
+
+	list.Swap(2, 3);
+
+	assert(list.Get(0) == 1);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 3);
+	assert(list.Get(4) == 5);
+
+	list.Swap(0, 3);
+
+	assert(list.Get(0) == 3);
+	assert(list.Get(1) == 2);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 1);
+	assert(list.Get(4) == 5);
+
+	list.Swap(4, 1);
+
+	assert(list.Get(0) == 3);
+	assert(list.Get(1) == 5);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 1);
+	assert(list.Get(4) == 2);
+
+	list.Swap(0, 4);
+
+	assert(list.Get(0) == 2);
+	assert(list.Get(1) == 5);
+	assert(list.Get(2) == 4);
+	assert(list.Get(3) == 1);
+	assert(list.Get(4) == 3);
+
+
+	cout << "OK" << endl;
+}
+
+int main() {
+	AddFrontTests();
+	AddBackTests();
+	InsertAtTests();
+
+	RemoveFrontTests();
+	RemoveBackTests();
+	RemoveAtTests();
+	RemoveTests();
+
+	IsSortedTests();
+	BubleSortTests();
+	SelectionSortTests();
+	InsertionSortTests();
+	MergeSortTests();
+	QuickSortTests();
+
+	FunctionsTests();
+}
