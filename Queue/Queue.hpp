@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 template <typename T>
 class Queue {
@@ -50,7 +51,7 @@ Queue<T>::Queue(const Queue& queue) {
 	if (queue.head == nullptr)
 		return;
 	
-	for (Node *orig = list.head; orig != nullptr; orig = orig->next) {
+	for (Node *orig = queue.head; orig != nullptr; orig = orig->next) {
 		Node *node = new Node;
 
 		node->value = orig->value;
@@ -71,7 +72,7 @@ Queue<T>::Queue(const Queue& queue) {
 
 // оператор присваивания
 template <typename T>
-Queue& Queue<T>operator=(const Queue& queue) {
+Queue<T>& Queue<T>::operator=(const Queue& queue) {
 	if (this == &queue)
 		return *this; // нет смысла присваивать самому себе
 
@@ -89,7 +90,7 @@ Queue& Queue<T>operator=(const Queue& queue) {
 		return *this; // возвращаем пустую очредь
 	
 	// копируем элементы очереди
-	for (Node *orig = list.head; orig != nullptr; orig = orig->next) {
+	for (Node *orig = queue.head; orig != nullptr; orig = orig->next) {
 		Node *node = new Node;
 
 		node->value = orig->value;
@@ -112,7 +113,7 @@ Queue& Queue<T>operator=(const Queue& queue) {
 
 // добавление элемента в очередь
 template <typename T>
-void Queue<T>Enqueue(const T& value) {
+void Queue<T>::Enqueue(const T& value) {
 	Node *node = new Node; // создаём новый элемент
 
 	node->value = value; // сохраняем значение
@@ -135,7 +136,7 @@ template <typename T>
 T Queue<T>::Dequeue() {
 	// если очередь пуста
 	if (head == nullptr)
-		throw "Queue::Dequeue - queue is empty"; // бросаем исключение
+		throw std::string("Queue::Dequeue - queue is empty"); // бросаем исключение
 
 	T value = head->value; // запоминаем значение в начале очереди
 
