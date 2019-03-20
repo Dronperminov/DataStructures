@@ -159,7 +159,7 @@ template <typename T>
 T& Queue<T>::Front() {
 	// если очередь пуста, то невозможно получить элемент
 	if (head == nullptr)
-		throw std::string("Queue::Front - stack is empty"); // бросаем исключение
+		throw std::string("Queue::Front - queue is empty"); // бросаем исключение
 
 	return head->value;
 }
@@ -169,7 +169,7 @@ template <typename T>
 T& Queue<T>::Back() {
 	// если очередь пуста, то невозможно получить элемент
 	if (tail == nullptr)
-		throw std::string("Queue::Back - stack is empty"); // бросаем исключение
+		throw std::string("Queue::Back - queue is empty"); // бросаем исключение
 
 	return tail->value;
 }
@@ -179,7 +179,7 @@ template <typename T>
 const T& Queue<T>::Front() const {
 	// если очередь пуста, то невозможно получить элемент
 	if (head == nullptr)
-		throw std::string("Queue::Front - stack is empty"); // бросаем исключение
+		throw std::string("Queue::Front - queue is empty"); // бросаем исключение
 
 	return head->value;
 }
@@ -189,7 +189,7 @@ template <typename T>
 const T& Queue<T>::Back() const {
 	// если очередь пуста, то невозможно получить элемент
 	if (tail == nullptr)
-		throw std::string("Queue::Back - stack is empty"); // бросаем исключение
+		throw std::string("Queue::Back - queue is empty"); // бросаем исключение
 
 	return tail->value;
 }
