@@ -4,7 +4,8 @@ Implementation of different data structures in C++
 ## Implemented structures
 * ### List
   * linked list
-  * double linked list
+  * doubly linked list
+  * circular doubly linked list
 
 * ### Trees
   * binary search tree
@@ -21,3 +22,5 @@ Implementation of different data structures in C++
 * ### Graph
 * ### Stack
 * ### Complex number
+* ### Fraqtion
+* ### Matrix
