@@ -5,6 +5,7 @@ Implementation of different data structures in C++
 * ### List
   * linked list
   * doubly linked list
+  * circular linked list
   * circular doubly linked list
 
 * ### Trees
