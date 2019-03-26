@@ -52,8 +52,7 @@ CircularDoublyLinkedList<T>::CircularDoublyLinkedList() {
 // конструктор копирования
 template <typename T>
 CircularDoublyLinkedList<T>::CircularDoublyLinkedList(const CircularDoublyLinkedList& list) {
-	std::cout << "COPY!";
-	head = nullptr; // обнулея указатель
+	head = nullptr; // обнуляем указатель
 	length = list.length; // копируем длину
 
 	// если нечего копировать, то не копируем
