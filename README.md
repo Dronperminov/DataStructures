@@ -2,26 +2,28 @@
 Implementation of different data structures in C++
 
 ## Implemented structures
-* ### List
-  * linked list
-  * doubly linked list
-  * circular linked list
-  * circular doubly linked list
+* ### Lists
+  * [Linked list](/LinkedList/LinkedList.hpp)
+  * [Doubly linked list](/DoublyLinkedList/DoublyLinkedList.hpp)
+  * [Circular linked list](/CircularLinkedList/CircularLinkedList.hpp)
+  * [Circular doubly linked list](/CircularDoublyLinkedList/CircularDoublyLinkedList.hpp)
 
 * ### Trees
-  * binary search tree
-  * AVL tree
-  * Red black tree
-  * Splay tree
+  * [Binary tree](/BinaryTree/Tree.hpp)
+  * [AVL tree](/AVLTree/AVLTree.hpp)
+  * [Red black tree](/RedBlackTree/RBTree.hpp)
+  * [Splay tree](/SplayTree/SplayTree.hpp)
 
 * ### Hash tables
-  * Separate chaining table
-  * Linear probing table
-  * QuadraticProbingTable
-  * Double hashing table
+  * [Separate chaining table](/HashTables/SeparateChainingTable.hpp)
+  * [Linear probing table](/HashTables/LinearProbingTable.hpp)
+  * [QuadraticProbingTable](/HashTables/QuadraticProbingTable.hpp)
+  * [Double hashing table](/HashTables/DoubleHashingTable.hpp)
 
-* ### Graph
-* ### Stack
-* ### Complex number
-* ### Fraqtion
-* ### Matrix
+* ### [Graph](/Graph/Graph.hpp)
+* ### [Stack](/Stack/Stack.hpp)
+* ### [Queue](/Queue/Queue.hpp)
+* ### [Deque](/Deque/Deque.hpp)
+* ### [Complex number](/Complex/Complex.hpp)
+* ### [Fraqtion](/Fraqtion/Fraqtion.hpp)
+* ### [Matrix](/Matrix/Matrix.hpp)
