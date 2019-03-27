@@ -20,7 +20,9 @@ public:
 	LinkedList(); // конструктор по умолчанию
 	LinkedList(const LinkedList &list); // конструктор копирования
 
-	int Length() const; // получение длины списка
+	LinkedList& operator=(const LinkedList &list); // оператор присваивания
+
+int Length() const; // получение длины списка
 	bool IsEmpty() const; // проверка списка на пустоту
 	bool IsSorted() const; // проверка на упорядоченность (по неубыванию)
 
@@ -139,7 +141,7 @@ LinkedList<T>::LinkedList(const LinkedList &list) {
 	length = list.length;
 
 	Node *prev = nullptr;
-	
+
 	for (Node *orig = list.head; orig != nullptr; orig = orig->next) {
 		Node *node = new Node;
 
@@ -155,6 +157,41 @@ LinkedList<T>::LinkedList(const LinkedList &list) {
 
 		prev = node;
 	}
+}
+
+// оператор присваивания
+template <typename T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T> &list) {
+	if (this == &list)
+		return *this;
+
+	while (head) {
+		Node *tmp = head;
+		head = head->next;
+		delete tmp;
+	}
+
+	length = list.length;
+
+	Node *prev = nullptr;
+
+	for (Node *orig = list.head; orig != nullptr; orig = orig->next) {
+		Node *node = new Node;
+
+		node->value = orig->value;
+		node->next = nullptr;
+
+		if (prev == nullptr) {
+			head = node;
+		}
+		else {
+			prev->next = node;
+		}
+
+		prev = node;
+	}
+
+	return *this;
 }
 
 template <typename T>
