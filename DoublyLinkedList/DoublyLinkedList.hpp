@@ -20,6 +20,8 @@ public:
 	DoublyLinkedList(); // конструктор по умолчанию
 	DoublyLinkedList(const DoublyLinkedList<T> &list); // конструктор копирования
 
+	DoublyLinkedList& operator=(const DoublyLinkedList<T>& list); // оператор присваивания
+
 	int Length() const; // получение длины списка
 	bool IsEmpty() const; // проверка списка на пустоту
 	bool IsSorted() const; // проверка на упорядоченность (по неубыванию)
@@ -72,6 +74,44 @@ DoublyLinkedList<T>::DoublyLinkedList(const DoublyLinkedList<T> &list) {
 
 	if (list.head == nullptr)
 		return;
+
+	for (Node *orig = list.head; orig != nullptr; orig = orig->next) {
+		Node *node = new Node;
+
+		node->value = orig->value;
+		node->next = nullptr;
+		node->prev = tail;
+
+		// если список пуст
+		if (tail == nullptr) {
+			head = node; // то голова списка и есть этот элемент
+		}
+		else { // иначе вставляем в конец
+			tail->next = node;
+		}
+
+		tail = node;
+	}
+}
+
+// оператор присваивания
+template <typename T>
+DoublyLinkedList<T>& DoublyLinkedList<T>::operator=(const DoublyLinkedList<T>& list) {
+	if (this == &list)
+		return *this;
+
+	while (head) {
+		Node *tmp = head;
+		head = head->next;
+		delete tmp;
+	}
+
+	tail = nullptr;
+
+	length = list.length;
+
+	if (list.head == nullptr)
+		return *this;
 	
 	for (Node *orig = list.head; orig != nullptr; orig = orig->next) {
 		Node *node = new Node;
@@ -90,6 +130,8 @@ DoublyLinkedList<T>::DoublyLinkedList(const DoublyLinkedList<T> &list) {
 
 		tail = node;
 	}
+
+	return *this;
 }
 
 template <typename T>
