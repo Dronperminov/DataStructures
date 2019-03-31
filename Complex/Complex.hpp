@@ -26,11 +26,15 @@ public:
 	Complex& operator*=(const Complex &c); // короктая запись произведения
 	Complex& operator/=(const Complex &c); // короткая запись деления
 
+	Complex operator+(double lambda) const; // прибавление скаляря
+	Complex operator-(double lambda) const; // вычитание скаляря
 	Complex operator*(double lambda) const; // умножение на скаляр
 	Complex operator/(double lambda) const; // деление на скаляр
 
 	Complex& operator*=(double lambda); // короткое умножение на скаляр
 	Complex& operator/=(double lambda); // короткое деление на скаляр
+
+	Complex operator-() const; // унарный минус
 
 	double Re() const; // получение действительной части
 	double Im() const; // получение мнимой части
@@ -38,6 +42,18 @@ public:
 	double Abs() const; // получение модуля числа
 	double Arg() const; // получение аргумента числа
 	Complex Conjunct() const; // получение сопряжённого к числу
+
+	static Complex Exp(const Complex& c); // экспонента от числа
+	static Complex Ln(const Complex& c); // логарифм от числа
+	static Complex Sh(const Complex& c); // гиперболический синус
+	static Complex Ch(const Complex& c); // гиперболический косинус
+	static Complex Th(const Complex& c); // гиперболический тангенс
+	static Complex Cth(const Complex& c); // гиперболический котангенс
+
+	static Complex Arsh(const Complex& c); // ареасинус
+	static Complex Arch(const Complex& c); // ареакосинус
+	static Complex Arth(const Complex& c); // ареатангенс
+	static Complex Arcth(const Complex& c); // ареакотангенс
 
 	friend std::ostream& operator<<(std::ostream& os, const Complex &c); // вывод в поток
 	friend std::istream& operator>>(std::istream& is, Complex &c); // ввод из потока
@@ -122,6 +138,16 @@ Complex& Complex::operator/=(const Complex &c) {
 	return *this;
 }
 
+// прибавление скаляря
+Complex Complex::operator+(double lambda) const {
+	return Complex(re + lambda, im);
+}
+
+// вычитание скаляря
+Complex Complex::operator-(double lambda) const {
+	return Complex(re - lambda, im);
+}
+
 Complex Complex::operator*(double lambda) const {
 	return Complex(re * lambda, im * lambda);
 }
@@ -144,6 +170,10 @@ Complex& Complex::operator/=(double lambda) {
 	return *this;
 }
 
+// унарный минус
+Complex Complex::operator-() const {
+	return Complex(-re, -im);
+}
 
 double Complex::Re() const {
 	return re;
@@ -163,6 +193,86 @@ double Complex::Arg() const {
 
 Complex Complex::Conjunct() const {
 	return Complex(re, -im);
+}
+
+// экспонента от числа
+Complex Complex::Exp(const Complex& c) {
+	return Complex(exp(c.re) * cos(c.im), exp(c.re) * sin(c.im));
+}
+
+// логарифм от числа
+Complex Complex::Ln(const Complex& c) {
+	return Complex(log(c.Abs()), c.Arg());
+}
+
+// гиперболический синус
+Complex Complex::Sh(const Complex& c) {
+	double re = (exp(c.re) - exp(-c.re)) / 2 * cos(c.im);
+	double im = (exp(c.re) + exp(-c.re)) / 2 * sin(c.im);
+
+	return Complex(re, im);
+}
+
+// гиперболический косинус
+Complex Complex::Ch(const Complex& c) {
+	double re = (exp(c.re) + exp(-c.re)) / 2 * cos(c.im);
+	double im = (exp(c.re) - exp(-c.re)) / 2 * sin(c.im);
+
+	return Complex(re, im);
+}
+
+// гиперболический тангенс
+Complex Complex::Th(const Complex& c) {
+	double t = exp(4 * c.re) + 2 * exp(2 * c.re) * cos(2 * c.im) + 1;
+	double re = (exp(4 * c.re) - 1) / t;
+	double im = (2 * exp(2 * c.re) * sin(2 * c.im)) / t;
+
+	return Complex(re, im);
+}
+
+// гиперболический котангенс
+Complex Complex::Cth(const Complex& c) {
+	double t = exp(4 * c.re) - 2 * exp(2 * c.re) * cos(2 * c.im) + 1;
+	double re = (exp(4 * c.re) - 1) / t;
+	double im = (-2 * exp(2 * c.re) * sin(2 * c.im)) / t;
+
+	return Complex(re, im);
+}
+
+// ареасинус
+Complex Complex::Arsh(const Complex& c) {
+	Complex z = c*c + 1;
+	Complex sqrtC;
+
+	sqrtC.im = sqrt((-z.re + z.Abs()) / 2) * (z.im > 0 ? 1 : -1);
+	sqrtC.re = z.im / (2 * sqrtC.im);
+
+	return Ln(c + sqrtC);
+}
+
+// ареакосинус
+Complex Complex::Arch(const Complex& c) {
+	Complex z = c*c - 1;
+	Complex sqrtC;
+
+	sqrtC.im = sqrt((-z.re + z.Abs()) / 2);
+	sqrtC.re = z.im / (2 * sqrtC.im);
+
+	return Ln(c + sqrtC) * (c.im > 0 ? 1 : -1);
+}
+
+// ареатангенс
+Complex Complex::Arth(const Complex& c) {
+	Complex z = -(c + 1) / (c - 1);
+
+	return Complex(log(z.Abs()) / 2, z.Arg() / 2);
+}
+
+// ареакотангенс
+Complex Complex::Arcth(const Complex& c) {
+	Complex z = (c + 1) / (c - 1);
+
+	return Complex(log(z.Abs()) / 2, z.Arg() / 2);
 }
 
 std::ostream& operator<<(std::ostream& os, const Complex &c) {
