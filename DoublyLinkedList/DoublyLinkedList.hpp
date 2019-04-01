@@ -725,42 +725,28 @@ void DoublyLinkedList<T>::QuickSort() {
 
 template <typename T>
 void DoublyLinkedList<T>::Reverse() {
-	Node *node1 = head;
-	Node *node2 = tail;
+	if (head == nullptr || head->next == nullptr) 
+        return; 
+  
+    Node *curr = head; 
+    head = nullptr;
 
-	while (node1 != node2 && node1->next != node2) {
-		Node *next1 = node1->next;
-		Node *prev1 = node1->prev;
+	while (curr ) { 
+		Node *next = curr->next; 
 
-		Node *next2 = node2->next;
-		Node *prev2 = node2->prev;
+		curr->prev = nullptr; 
+		curr->next = head; 
 
-		if (next2) {
-			next2->prev = node1;
+		if (head != nullptr) {
+			head->prev = curr; 
 		}
 		else {
-			head = node2;
+			tail = curr;
 		}
 
-		if (prev1) {
-			prev1->next = node2;
-		}
-		else {
-			tail = node1;
-		}
-
-		next1->prev = node2;
-		prev2->next = node1;
-
-		node1->next = next2;
-		node1->prev = prev2;
-
-		node2->next = next1;
-		node2->prev = prev1;
-
-		node1 = next1;
-		node2 = prev2;
-	}
+		head = curr;  
+		curr = next; 
+	} 
 }
 
 template <typename T>
