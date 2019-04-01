@@ -658,7 +658,7 @@ void LinkedList<T>::QuickSort() {
 
 template <typename T>
 void LinkedList<T>::Reverse() {
-	if (IsEmpty())
+	if (head == nullptr || head->next == nullptr)
 		return;
 
 	Node *node = head;
