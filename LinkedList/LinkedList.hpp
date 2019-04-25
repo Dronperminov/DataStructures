@@ -555,18 +555,18 @@ void LinkedList<T>::SelectionSort() {
 
 template <typename T>
 void LinkedList<T>::InsertionSort() {
-	Node *sorted = nullptr;
 	Node *current = head;
+	head = nullptr;
 
 	while (current) {
 		Node *next = current->next;
 
-		if (sorted == nullptr || sorted->value >= current->value) {
-			current->next = sorted;
-			sorted = current;
+		if (head == nullptr || head->value >= current->value) {
+			current->next = head;
+			head = current;
 		}
 		else {
-			Node *node = sorted;
+			Node *node = head;
 
 			while (node->next && node->next->value < current->value)
 				node = node->next;
@@ -577,8 +577,6 @@ void LinkedList<T>::InsertionSort() {
 
 		current = next;
 	}
-
-	head = sorted; // обновляем указатель на начало списка
 }
 
 template <typename T>
