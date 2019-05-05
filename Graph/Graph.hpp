@@ -52,6 +52,7 @@ public:
 	std::vector<int> PrimMST() const; // построение минимального остовного дерева, алгоритм Прима
 	std::vector<int> KruskalMST() const; // построение минимального остовного дерева, алгоритм Крускала
 	std::vector<int> GetArticulationPoints() const; // получение точек сочленения
+	std::vector<int> GetGamiltonLoop() const; // получение Гамильтонова цикла
 
 	~Graph(); // деструктор
 };
@@ -531,6 +532,49 @@ std::vector<int> Graph::GetArticulationPoints() const {
 			GetArticulationPoints(i, -1, visited, in, up, time, points);
 
 	return points; // возвращаем вектор точек сочленения
+}
+
+// получение Гамильтонова цикла
+std::vector<int> Graph::GetGamiltonLoop() const {
+	std::vector<int> loop;
+
+	for (int i = 0; i < vertices; i++)
+		loop.push_back(i);
+
+	int n = vertices * (vertices - 1);
+
+	for (int k = 0; k < n; k++) {
+		// проверяем существования ребра между первой и второй вершинами очереди
+		if (matrix[loop[0]][loop[1]] == 0) {
+			int index = 2;
+
+			// ищем индекс, удовлетворяющий условию вершины
+			while (matrix[loop[0]][loop[index]] == 0 || matrix[loop[1]][loop[index + 1]] == 0)
+				index++;
+
+			// Разворачиваем подочередь от первой до найденной позиции включительно
+			int i = 1;
+			int j = index; 
+
+			while (i < j) {
+				int tmp = loop[i];
+				loop[i] = loop[j];
+				loop[j] = tmp;
+				i++;
+				j--;
+			}
+		}
+
+		// перемещем в конец первую вершину
+		int top = loop[0];
+
+		for (int i = 0; i < vertices - 1; i++)
+			loop[i] = loop[i + 1];
+
+		loop[vertices - 1] = top;
+	}
+
+	return loop;
 }
 
 // деструктор
