@@ -10,6 +10,15 @@ void Print(SplayTree<int> &tree) {
 	}
 	else {
 		cout << tree;
+        cout << endl << "PreOrder: ";
+        tree.PreOrder(cout);
+
+        cout << endl << "InOrder: ";
+        tree.InOrder(cout);
+
+        cout << endl << "PostOrder: ";
+        tree.PostOrder(cout);
+        cout << endl;
 	}
 }
 

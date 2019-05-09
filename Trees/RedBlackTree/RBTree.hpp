@@ -38,6 +38,10 @@ class RBTree {
 
     void Print(std::ostream &os, Node *node, int level) const; // вывод дерева в виде повёрнутого дерева в поток
 
+    void PreOrder(std::ostream &os, Node *node) const; // прямой порядок вывода
+	void InOrder(std::ostream &os, Node *node) const; // центрированный порядок вывода
+	void PostOrder(std::ostream &os, Node *node) const; // обратный порядок вывода
+
 public:
     RBTree(); // конструктор по умолчанию
     RBTree(const RBTree& tree); // конструктор копирования
@@ -52,6 +56,10 @@ public:
 
     int GetSize() const; // количество элементов в дереве
     int GetHeight() const; // высота дерева
+
+    void PreOrder(std::ostream &os) const; // прямой порядок вывода
+	void InOrder(std::ostream &os) const; // симметричный порядок вывода
+	void PostOrder(std::ostream &os) const; // обратный порядок вывода
 
     ~RBTree(); // деструктор (освобождение памяти)
 
@@ -418,6 +426,39 @@ void RBTree<T>::Print(std::ostream &os, Node *node, int level) const {
 	Print(os, node->left, level + 1);
 }
 
+// прямой порядок вывода
+template <typename T>
+void RBTree<T>::PreOrder(std::ostream &os, Node *node) const {
+	if (node == nullptr)
+		return;
+
+	os << node->value << " ";
+	PreOrder(os, node->left);
+	PreOrder(os, node->right);
+}
+
+// центрированный порядок вывода
+template <typename T>
+void RBTree<T>::InOrder(std::ostream &os, Node *node) const {
+	if (node == nullptr)
+		return;
+
+	InOrder(os, node->left);
+	os << node->value << " ";
+	InOrder(os, node->right);
+}
+
+// обратный порядок вывода
+template <typename T>
+void RBTree<T>::PostOrder(std::ostream &os, Node *node) const {
+	if (node == nullptr)
+		return;
+
+	PostOrder(os, node->left);
+	PostOrder(os, node->right);
+	os << node->value << " ";
+}
+
 // конструктор по умолчанию
 template <typename T>
 RBTree<T>::RBTree() {
@@ -521,6 +562,25 @@ template <typename T>
 int RBTree<T>::GetHeight() const {
 	return GetHeight(root); // вызываем рекурсивную версию получения высоты
 }
+
+// прямой порядок вывода
+template <typename T>
+void RBTree<T>::PreOrder(std::ostream &os) const {
+	PreOrder(os, root);
+}
+
+// симметричный порядок вывода
+template <typename T>
+void RBTree<T>::InOrder(std::ostream &os) const {
+	InOrder(os, root);
+}
+
+// обратный порядок вывода
+template <typename T>
+void RBTree<T>::PostOrder(std::ostream &os) const {
+	PostOrder(os, root);
+}
+
 
 // деструктор (освобождения памяти)
 template <typename T>
