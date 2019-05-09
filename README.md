@@ -9,10 +9,11 @@ Implementation of different data structures in C++
   * [Circular doubly linked list](/CircularDoublyLinkedList/CircularDoublyLinkedList.hpp)
 
 * ### Trees
-  * [Binary tree](/BinaryTree/Tree.hpp)
-  * [AVL tree](/AVLTree/AVLTree.hpp)
-  * [Red black tree](/RedBlackTree/RBTree.hpp)
-  * [Splay tree](/SplayTree/SplayTree.hpp)
+  * [Binary tree](/Trees/BinaryTree/Tree.hpp)
+  * [AVL tree](/Trees/AVLTree/AVLTree.hpp)
+  * [Red black tree](/Trees/RedBlackTree/RBTree.hpp)
+  * [Splay tree](/Trees/SplayTree/SplayTree.hpp)
+  * [Treap](/Trees/Treap/Treap.hpp)
 
 * ### Hash tables
   * [Separate chaining table](/HashTables/SeparateChainingTable.hpp)
