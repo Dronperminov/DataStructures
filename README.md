@@ -3,10 +3,10 @@ Implementation of different data structures in C++
 
 ## Implemented structures
 * ### Lists
-  * [Linked list](/LinkedList/LinkedList.hpp)
-  * [Doubly linked list](/DoublyLinkedList/DoublyLinkedList.hpp)
-  * [Circular linked list](/CircularLinkedList/CircularLinkedList.hpp)
-  * [Circular doubly linked list](/CircularDoublyLinkedList/CircularDoublyLinkedList.hpp)
+  * [Linked list](/Lists/LinkedList/LinkedList.hpp)
+  * [Doubly linked list](/Lists/DoublyLinkedList/DoublyLinkedList.hpp)
+  * [Circular linked list](/Lists/CircularLinkedList/CircularLinkedList.hpp)
+  * [Circular doubly linked list](/Lists/CircularDoublyLinkedList/CircularDoublyLinkedList.hpp)
 
 * ### Trees
   * [Binary tree](/Trees/BinaryTree/Tree.hpp)
